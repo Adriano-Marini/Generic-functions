@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <stdarg.h>
 typedef struct Element *PElement;
 
 typedef struct Element{
@@ -52,8 +51,3 @@ void* read_str(FILE*f);
 typedef int(*cmp_fun) (const void *a, const void *b);
 void generic_tri(void *glist, int nb_elem, int size_oct, cmp_fun cmp);
 int equals_int(const void *e1, const void *e2);
-
-//Variadic functions
-
-void mini_printf(char* fmt, ...);
-void int_to_char(int nb);
