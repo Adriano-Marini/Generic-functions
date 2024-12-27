@@ -193,3 +193,34 @@ void* read_str(FILE* f) {
     }
     return (void *)buffer;
 }
+
+//Defining triage function
+
+/*
+The contents of the array are sorted in ascending order according to  a
+comparison  function pointed to by glist, by generic_tri.
+*/
+void generic_tri(void *glist, int nb_elem, int size_oct, cmp_fun cmp){
+	char *tab=(char *)glist;
+	char *tmp=(char *)malloc(sizeof(char)*size_oct);
+	if(!tmp){
+		printf("Memory allocation eror\n");
+		return ;
+	}
+	for(int i=nb_elem; i>1; i--){
+		for(int j=0; j<i-1; j++){
+			if((*cmp)(tab+(j+1)*size_oct,tab+j*size_oct)<1){
+				memcpy(tmp,tab+j*size_oct,size_oct);
+				memcpy(tab+j*size_oct,tab+(j+1)*size_oct,size_oct);
+				memcpy(tab+(j+1)*size_oct,tmp,size_oct);
+			}
+		}
+	}
+	free(tmp);
+}
+//Our comparison function
+int equals_int(const void *e1, const void *e2){
+		const int *a1=(int *)e1;
+		const int *a2=(int *)e2;
+		return (*a1>*a2)-(*a2>*a1);
+}
